@@ -9,13 +9,14 @@ public class Cleaner {
     public static final int ONE_HOUR = 3600000;
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        ConfigFileInfo configFileInfo = new ConfigurationFileParser().parseConfigFile();
         RemoteFileChecker remoteFileChecker = new RemoteFileChecker();
+        ContentRemover contentRemover = new ContentRemover();
 
         while (true) {
+            ConfigFileInfo configFileInfo = new ConfigurationFileParser().parseConfigFile();
             boolean remoteFileExists = remoteFileChecker.checkIfRemoteFileExists(configFileInfo.getRemoteUrl());
             if (remoteFileExists) {
-                new ContentRemover().remove(configFileInfo);
+                contentRemover.remove(configFileInfo);
                 try {
                     Thread.sleep(ONE_HOUR);
                 } catch (InterruptedException e) {
