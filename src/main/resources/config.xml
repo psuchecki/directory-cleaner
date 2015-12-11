@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<program>
+    <!--Sample configuration, note that you can use multiple file and directory values-->
+    <url>http://www.axmag.com/download/pdfurl-guide.pdf</url>
+    <file>C:\Dev\workspace\directory-cleaner\target\classes\fileToDelete.txt</file>
+    <directory>C:\Dev\workspace\directory-cleaner\target\classes\dirToRemove</directory>
+</program>
