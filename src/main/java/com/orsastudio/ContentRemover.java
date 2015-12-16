@@ -19,44 +19,37 @@ public class ContentRemover {
     }
 
     private void removeFile(String fileName) {
-        try {
-            Files.delete(Paths.get(fileName));
-        } catch (IOException e) {
-            System.out.println("Failed to remove " + fileName);
-        }
+        Path path = Paths.get(fileName);
+        removeFromPath(path);
     }
 
     private class RecursiveDirectoryVisitor extends SimpleFileVisitor<Path> {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-            try {
-                Files.delete(file);
-            } catch (IOException e) {
-                System.out.println("Failed to remove " + file);
-            }
+            removeFromPath(file);
 
             return FileVisitResult.CONTINUE;
         }
 
         @Override
         public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-            try {
-                Files.delete(dir);
-            } catch (IOException e) {
-                System.out.println("Failed to remove " + dir);
-            }
+            removeFromPath(dir);
 
             return FileVisitResult.CONTINUE;
         }
 
         public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-            try {
-                Files.delete(file);
-            } catch (IOException e) {
-                System.out.println("Failed to remove " + file);
-            }
+            removeFromPath(file);
 
             return FileVisitResult.CONTINUE;
+        }
+    }
+
+    private void removeFromPath(Path path) {
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            System.out.println("Failed to remove " + path);
         }
     }
 }
